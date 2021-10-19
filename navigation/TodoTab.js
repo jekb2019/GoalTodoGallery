@@ -10,44 +10,7 @@ import { capitalizeFirstLetter } from '../util/helpers';
 const Tab = createBottomTabNavigator();
 
 const TodoTab = (props) => {
-  const [todo, dispatch] = useTodo([
-    {
-      title: 'title1',
-      id: '123',
-      isDone: false,
-      type: 'work',
-    },
-    {
-      title: 'title2',
-      id: '456',
-      isDone: true,
-      type: 'life',
-    },
-    {
-      title: 'title3',
-      id: '789',
-      isDone: false,
-      type: 'work',
-    },
-    {
-      title: 'title4',
-      id: '111',
-      isDone: false,
-      type: 'life',
-    },
-    {
-      title: 'title5',
-      id: '222',
-      isDone: true,
-      type: 'work',
-    },
-    {
-      title: 'title6',
-      id: '333',
-      isDone: false,
-      type: 'goal',
-    },
-  ]);
+  const [todo, dispatch] = useTodo([]);
 
   return (
     <TodoContext.Provider value={{ todo, dispatch }}>

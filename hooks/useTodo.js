@@ -1,10 +1,12 @@
 import { useReducer } from 'react';
 import uuid from 'react-native-uuid';
+import { storeTodo, getTodo } from '../util/asyncStorage';
 
 export const ACTION_TYPES = {
   ADD_TODO: 'add-todo',
   DELETE_TODO: 'delete-todo',
   TOGGLE_ISDONE: 'toggle-isDone',
+  LOAD_TODO: 'load-todo',
 };
 
 export const useTodo = (initialTodo) => {
@@ -18,8 +20,9 @@ export const useTodo = (initialTodo) => {
       case ACTION_TYPES.TOGGLE_ISDONE:
         const { id, bool } = action.payload;
         return toggleIsDone(todo, id, bool);
+      case ACTION_TYPES.LOAD_TODO:
+        return action.payload.loaded;
       default:
-        console.log('default action');
         return todo;
     }
   };
@@ -33,17 +36,22 @@ export const useTodo = (initialTodo) => {
       isDone: false,
       type,
     };
-    return [newTodo, ...todo];
+    const updatedTodo = [newTodo, ...todo];
+    storeTodo(updatedTodo);
+    return updatedTodo;
   }
 
   function deleteTodo(todo, id) {
-    return todo.filter((item) => item.id !== id);
+    const updatedTodo = todo.filter((item) => item.id !== id);
+    storeTodo(updatedTodo);
+    return updatedTodo;
   }
 
   function toggleIsDone(todo, id, bool) {
     const idx = todo.findIndex((item) => item.id === id);
     const tempTodo = [...todo];
     tempTodo[idx].isDone = bool;
+    storeTodo(tempTodo);
     return tempTodo;
   }
 
