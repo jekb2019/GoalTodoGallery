@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TodoBoard from '../screens/todo/TodoBoard';
-import { ScreenNames } from '../util/constants';
+import { SCREEN_NAMES } from '../util/constants';
 import { displayIcon } from './util/displayer';
 import { TodoContext } from '../context/TodoContext';
 import { useTodo } from '../hooks/useTodo';
@@ -10,7 +10,7 @@ import { capitalizeFirstLetter } from '../util/helpers';
 const Tab = createBottomTabNavigator();
 
 const TodoTab = (props) => {
-  const [todo, dispatch] = useTodo([]);
+  const [todo, dispatch] = useTodo();
 
   return (
     <TodoContext.Provider value={{ todo, dispatch }}>
@@ -20,34 +20,34 @@ const TodoTab = (props) => {
         }}
       >
         <Tab.Screen
-          name={ScreenNames.WORK}
+          name={SCREEN_NAMES.WORK}
           options={{
             tabBarIcon: ({ focused, color, size }) =>
-              displayIcon(ScreenNames.WORK, color, size),
-            tabBarLabel: capitalizeFirstLetter(ScreenNames.WORK),
+              displayIcon(SCREEN_NAMES.WORK, color, size),
+            tabBarLabel: capitalizeFirstLetter(SCREEN_NAMES.WORK),
           }}
         >
-          {() => <TodoBoard type={ScreenNames.WORK} />}
+          {() => <TodoBoard type={SCREEN_NAMES.WORK} />}
         </Tab.Screen>
         <Tab.Screen
-          name={ScreenNames.LIFE}
+          name={SCREEN_NAMES.LIFE}
           options={{
             tabBarIcon: ({ focused, color, size }) =>
-              displayIcon(ScreenNames.LIFE, color, size),
-            tabBarLabel: capitalizeFirstLetter(ScreenNames.LIFE),
+              displayIcon(SCREEN_NAMES.LIFE, color, size),
+            tabBarLabel: capitalizeFirstLetter(SCREEN_NAMES.LIFE),
           }}
         >
-          {() => <TodoBoard type={ScreenNames.LIFE} />}
+          {() => <TodoBoard type={SCREEN_NAMES.LIFE} />}
         </Tab.Screen>
         <Tab.Screen
-          name={ScreenNames.GOAL}
+          name={SCREEN_NAMES.GOAL}
           options={{
             tabBarIcon: ({ focused, color, size }) =>
-              displayIcon(ScreenNames.GOAL, color, size),
-            tabBarLabel: capitalizeFirstLetter(ScreenNames.GOAL),
+              displayIcon(SCREEN_NAMES.GOAL, color, size),
+            tabBarLabel: capitalizeFirstLetter(SCREEN_NAMES.GOAL),
           }}
         >
-          {() => <TodoBoard type={ScreenNames.GOAL} />}
+          {() => <TodoBoard type={SCREEN_NAMES.GOAL} />}
         </Tab.Screen>
       </Tab.Navigator>
     </TodoContext.Provider>

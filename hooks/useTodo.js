@@ -2,14 +2,14 @@ import { useReducer } from 'react';
 import uuid from 'react-native-uuid';
 import { storeTodo, getTodo } from '../util/asyncStorage';
 
-export const ACTION_TYPES = {
+export const ACTION_TYPES = Object.freeze({
   ADD_TODO: 'add-todo',
   DELETE_TODO: 'delete-todo',
   TOGGLE_ISDONE: 'toggle-isDone',
   LOAD_TODO: 'load-todo',
-};
+});
 
-export const useTodo = (initialTodo) => {
+export const useTodo = () => {
   const reducer = (todo, action) => {
     switch (action.type) {
       case ACTION_TYPES.ADD_TODO:
@@ -27,7 +27,7 @@ export const useTodo = (initialTodo) => {
     }
   };
 
-  const [todo, dispatch] = useReducer(reducer, initialTodo);
+  const [todo, dispatch] = useReducer(reducer, []);
 
   function addTodo(todo, title, type) {
     const newTodo = {

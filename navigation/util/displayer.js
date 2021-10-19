@@ -1,15 +1,15 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
-import { ScreenNames } from '../../util/constants';
+import { SCREEN_NAMES } from '../../util/constants';
 import React from 'react';
 
 export const displayIcon = (name, color, size) => {
   switch (name) {
-    case ScreenNames.WORK:
+    case SCREEN_NAMES.WORK:
       return <MaterialIcons name="work-outline" size={size} color={color} />;
-    case ScreenNames.LIFE:
+    case SCREEN_NAMES.LIFE:
       return <Ionicons name="happy-outline" size={size} color={color} />;
-    case ScreenNames.GOAL:
+    case SCREEN_NAMES.GOAL:
       return (
         <Ionicons
           name="md-checkmark-circle-outline"
