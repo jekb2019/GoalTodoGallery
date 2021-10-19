@@ -1,11 +1,31 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { TextInput, StyleSheet, View } from 'react-native';
+import { TodoContext } from '../context/TodoContext';
+import { ACTION_TYPES } from '../hooks/useTodo';
 
-const TodoInput = (props) => (
-  <View style={styles.container}>
-    <TextInput style={styles.input} />
-  </View>
-);
+const TodoInput = ({ type }) => {
+  const { todo, dispatch } = useContext(TodoContext);
+  const [inputVal, setInputVal] = useState('');
+
+  const addTodo = () => {
+    dispatch({
+      type: ACTION_TYPES.ADD_TODO,
+      payload: { title: inputVal, type },
+    });
+    setInputVal('');
+  };
+
+  return (
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        value={inputVal}
+        onChangeText={setInputVal}
+        onSubmitEditing={addTodo}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

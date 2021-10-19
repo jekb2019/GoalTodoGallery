@@ -3,14 +3,23 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { TodoContext } from '../context/TodoContext';
 import Todo from './Todo';
 
-const TodoList = (props) => {
+const TodoList = ({ type }) => {
   const { todo, dispatch } = useContext(TodoContext);
   return (
     <View style={styles.container}>
       <ScrollView>
-        {todo.map((item) => (
-          <Todo key={item.id} title={item.title} isDone={item.isDone} />
-        ))}
+        {todo.map((item) => {
+          if (item.type === type) {
+            return (
+              <Todo
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                isDone={item.isDone}
+              />
+            );
+          }
+        })}
       </ScrollView>
     </View>
   );

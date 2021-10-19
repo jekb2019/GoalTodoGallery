@@ -1,28 +1,43 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
+import { TodoContext } from '../context/TodoContext';
+import { ACTION_TYPES } from '../hooks/useTodo';
 
-const Todo = ({ title, isDone }) => (
-  <View style={styles.todo}>
-    <View style={styles.checkTitleWrapper}>
-      <CheckBox
-        style={styles.checkbox}
-        disabled={false}
-        value={isDone}
-        onValueChange={(newValue) => console.log(newValue)}
-        tintColor="white"
-        onCheckColor="white"
-        onTintColor="white"
-      />
-      <Text style={styles.text}>{title}</Text>
+const Todo = ({ id, title, isDone }) => {
+  const { todo, dispatch } = useContext(TodoContext);
+
+  return (
+    <View style={styles.todo}>
+      <View style={styles.checkTitleWrapper}>
+        <CheckBox
+          style={styles.checkbox}
+          disabled={false}
+          value={isDone}
+          onValueChange={(newValue) =>
+            dispatch({
+              type: ACTION_TYPES.TOGGLE_ISDONE,
+              payload: { id, bool: newValue },
+            })
+          }
+          tintColor="white"
+          onCheckColor="white"
+          onTintColor="white"
+        />
+        <Text style={styles.text}>{title}</Text>
+      </View>
+      <TouchableOpacity
+        onPress={() =>
+          dispatch({ type: ACTION_TYPES.DELETE_TODO, payload: { id } })
+        }
+      >
+        <Feather style={styles.deleteBtn} name="trash-2" />
+      </TouchableOpacity>
     </View>
-    <TouchableOpacity>
-      <Feather style={styles.deleteBtn} name="trash-2" />
-    </TouchableOpacity>
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   todo: {
