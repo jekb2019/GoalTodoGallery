@@ -3,7 +3,7 @@ import React from 'react';
 import GoalGallery from '../screens/gallery/GoalGallery';
 import LifeGallery from '../screens/gallery/LifeGallery';
 import WorkGallery from '../screens/gallery/WorkGallery';
-import { ScreenNames } from '../util/constants';
+import { SCREEN_NAMES } from '../util/constants';
 import { displayIcon } from './util/displayer';
 
 const Tab = createBottomTabNavigator();
@@ -16,26 +16,26 @@ const GalleryTab = (props) => (
   >
     <Tab.Screen
       component={WorkGallery}
-      name={ScreenNames.WORK}
+      name={SCREEN_NAMES.WORK}
       options={{
         tabBarIcon: ({ focused, color, size }) =>
-          displayIcon(ScreenNames.WORK, color, size),
+          displayIcon(SCREEN_NAMES.WORK, color, size),
       }}
     />
     <Tab.Screen
       component={LifeGallery}
-      name={ScreenNames.LIFE}
+      name={SCREEN_NAMES.LIFE}
       options={{
         tabBarIcon: ({ focused, color, size }) =>
-          displayIcon(ScreenNames.LIFE, color, size),
+          displayIcon(SCREEN_NAMES.LIFE, color, size),
       }}
     />
     <Tab.Screen
       component={GoalGallery}
-      name={ScreenNames.GOAL}
+      name={SCREEN_NAMES.GOAL}
       options={{
         tabBarIcon: ({ focused, color, size }) =>
-          displayIcon(ScreenNames.GOAL, color, size),
+          displayIcon(SCREEN_NAMES.GOAL, color, size),
       }}
     />
   </Tab.Navigator>
