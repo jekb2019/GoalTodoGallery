@@ -6,7 +6,7 @@ import TodoTab from './TodoTab';
 
 const RootStack = createNativeStackNavigator();
 
-const Root = (props) => {
+const Root = () => {
   return (
     <RootStack.Navigator
       screenOptions={{
@@ -17,14 +17,14 @@ const Root = (props) => {
         name="Todo"
         component={TodoTab}
         options={{
-          headerRight: (props) => <NavSwitcher screenToSwitch="Gallery" />,
+          headerRight: () => <NavSwitcher screenToSwitch="Gallery" />,
         }}
       />
       <RootStack.Screen
         name="Gallery"
         component={GalleryTab}
         options={{
-          headerRight: (props) => <NavSwitcher screenToSwitch="Todo" />,
+          headerRight: () => <NavSwitcher screenToSwitch="Todo" />,
         }}
       />
     </RootStack.Navigator>

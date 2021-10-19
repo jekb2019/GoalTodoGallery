@@ -4,7 +4,7 @@ import { TodoContext } from '../context/TodoContext';
 import { ACTION_TYPES } from '../hooks/useTodo';
 
 const TodoInput = ({ type }) => {
-  const { todo, dispatch } = useContext(TodoContext);
+  const { dispatch } = useContext(TodoContext);
   const [inputVal, setInputVal] = useState('');
 
   const addTodo = () => {

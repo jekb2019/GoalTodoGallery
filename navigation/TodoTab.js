@@ -9,7 +9,7 @@ import { capitalizeFirstLetter } from '../util/helpers';
 
 const Tab = createBottomTabNavigator();
 
-const TodoTab = (props) => {
+const TodoTab = () => {
   const [todo, dispatch] = useTodo();
 
   return (
