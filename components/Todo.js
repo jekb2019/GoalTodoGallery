@@ -5,12 +5,19 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
 import { TodoContext } from '../context/TodoContext';
 import { ACTION_TYPES } from '../hooks/useTodo';
+import { ColorSchemeContext } from '../context/ColorSchemeContext';
 
 const Todo = ({ id, title, isDone }) => {
   const { todo, dispatch } = useContext(TodoContext);
+  const colorScheme = useContext(ColorSchemeContext);
 
   return (
-    <View style={styles.todo}>
+    <View
+      style={{
+        ...styles.todo,
+        backgroundColor: colorScheme === 'dark' ? '#000000' : '#bf209c',
+      }}
+    >
       <View style={styles.checkTitleWrapper}>
         <CheckBox
           style={styles.checkbox}
@@ -22,18 +29,31 @@ const Todo = ({ id, title, isDone }) => {
               payload: { id, bool: newValue },
             })
           }
-          tintColor="white"
-          onCheckColor="white"
-          onTintColor="white"
+          tintColor={colorScheme === 'dark' ? '#F9F871' : '#FFFFD0'}
+          onCheckColor={colorScheme === 'dark' ? '#F9F871' : '#FFFFD0'}
+          onTintColor={colorScheme === 'dark' ? '#F9F871' : '#FFFFD0'}
         />
-        <Text style={styles.text}>{title}</Text>
+        <Text
+          style={{
+            ...styles.text,
+            color: colorScheme === 'dark' ? '#F9F871' : '#FFFFD0',
+          }}
+        >
+          {title}
+        </Text>
       </View>
       <TouchableOpacity
         onPress={() =>
           dispatch({ type: ACTION_TYPES.DELETE_TODO, payload: { id } })
         }
       >
-        <Feather style={styles.deleteBtn} name="trash-2" />
+        <Feather
+          style={{
+            ...styles.deleteBtn,
+            color: colorScheme === 'dark' ? '#F9F871' : '#FFFFD0',
+          }}
+          name="trash-2"
+        />
       </TouchableOpacity>
     </View>
   );
@@ -42,7 +62,6 @@ const Todo = ({ id, title, isDone }) => {
 const styles = StyleSheet.create({
   todo: {
     flexDirection: 'row',
-    backgroundColor: '#bf209c',
     height: 50,
     marginVertical: 10,
     alignItems: 'center',
@@ -59,11 +78,9 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    color: 'white',
   },
   deleteBtn: {
     fontSize: 24,
-    color: 'white',
   },
 });
 

@@ -1,14 +1,19 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useEffect, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import { Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
-
-const TodoIcon = <AntDesign name="edit" size={24} color="black" />;
-const GalleryIcon = <FontAwesome5 name="images" size={24} color="black" />;
+import { ColorSchemeContext } from '../../context/ColorSchemeContext';
 
 const NavSwitcher = ({ screenToSwitch }) => {
+  const colorScheme = useContext(ColorSchemeContext);
+  const iconColor = colorScheme === 'dark' ? '#F9F871' : '#BF209C';
+  const TodoIcon = <AntDesign name="edit" size={24} color={iconColor} />;
+  const GalleryIcon = (
+    <FontAwesome5 name="images" size={24} color={iconColor} />
+  );
+
   const navigation = useNavigation();
 
   const switchScreen = () => {

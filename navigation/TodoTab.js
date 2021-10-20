@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TodoBoard from '../screens/todo/TodoBoard';
 import { SCREEN_NAMES } from '../util/constants';
@@ -6,17 +6,28 @@ import { displayIcon } from './util/displayer';
 import { TodoContext } from '../context/TodoContext';
 import { useTodo } from '../hooks/useTodo';
 import { capitalizeFirstLetter } from '../util/helpers';
+import { ColorSchemeContext } from '../context/ColorSchemeContext';
 
 const Tab = createBottomTabNavigator();
 
 const TodoTab = () => {
   const [todo, dispatch] = useTodo();
+  const colorScheme = useContext(ColorSchemeContext);
 
   return (
     <TodoContext.Provider value={{ todo, dispatch }}>
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
+          tabBarStyle: {
+            backgroundColor: colorScheme === 'dark' ? '#000000' : '#FFFFD0',
+          },
+          tabBarActiveTintColor: colorScheme === 'dark' ? '#F9F871' : '#bf209c',
+          tabBarInactiveTintColor:
+            colorScheme === 'dark' ? '#E2B659' : '#FF6565',
+          tabBarLabelStyle: {
+            fontSize: 12,
+          },
         }}
       >
         <Tab.Screen
@@ -42,8 +53,9 @@ const TodoTab = () => {
         <Tab.Screen
           name={SCREEN_NAMES.GOAL}
           options={{
-            tabBarIcon: ({ focused, color, size }) =>
-              displayIcon(SCREEN_NAMES.GOAL, color, size),
+            tabBarIcon: ({ focused, color, size }) => {
+              return displayIcon(SCREEN_NAMES.GOAL, color, size);
+            },
             tabBarLabel: capitalizeFirstLetter(SCREEN_NAMES.GOAL),
           }}
         >
