@@ -2,15 +2,17 @@ import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import TodoInput from '../../components/TodoInput';
 import TodoList from '../../components/TodoList';
-import { ColorSchemeContext } from '../../context/ColorSchemeContext';
+import { IsDarkModeContext } from '../../context/IsDarkModeContext';
+import { darkTheme, lightTheme } from '../../util/colors';
 
 const TodoBoard = ({ type }) => {
-  colorScheme = useContext(ColorSchemeContext);
+  isDarkMode = useContext(IsDarkModeContext);
+  const theme = isDarkMode ? darkTheme : lightTheme;
   return (
     <View
       style={{
         ...styles.screen,
-        backgroundColor: colorScheme === 'dark' ? '#4B4A54' : 'pink',
+        backgroundColor: theme.mainBg,
       }}
     >
       <View style={styles.inputWrapper}>

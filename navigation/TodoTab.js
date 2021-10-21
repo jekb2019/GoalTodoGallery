@@ -6,25 +6,25 @@ import { displayIcon } from './util/displayer';
 import { TodoContext } from '../context/TodoContext';
 import { useTodo } from '../hooks/useTodo';
 import { capitalizeFirstLetter } from '../util/helpers';
-import { ColorSchemeContext } from '../context/ColorSchemeContext';
+import { IsDarkModeContext } from '../context/IsDarkModeContext';
+import { darkTheme, lightTheme } from '../util/colors';
 
 const Tab = createBottomTabNavigator();
 
 const TodoTab = () => {
   const [todo, dispatch] = useTodo();
-  const colorScheme = useContext(ColorSchemeContext);
-
+  const isDarkMode = useContext(IsDarkModeContext);
+  const theme = isDarkMode ? darkTheme : lightTheme;
   return (
     <TodoContext.Provider value={{ todo, dispatch }}>
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
           tabBarStyle: {
-            backgroundColor: colorScheme === 'dark' ? '#000000' : '#FFFFD0',
+            backgroundColor: theme.tabBg,
           },
-          tabBarActiveTintColor: colorScheme === 'dark' ? '#F9F871' : '#bf209c',
-          tabBarInactiveTintColor:
-            colorScheme === 'dark' ? '#E2B659' : '#FF6565',
+          tabBarActiveTintColor: theme.tabActive,
+          tabBarInactiveTintColor: theme.tabInactive,
           tabBarLabelStyle: {
             fontSize: 12,
           },

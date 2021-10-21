@@ -5,17 +5,19 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
 import { TodoContext } from '../context/TodoContext';
 import { ACTION_TYPES } from '../hooks/useTodo';
-import { ColorSchemeContext } from '../context/ColorSchemeContext';
+import { IsDarkModeContext } from '../context/IsDarkModeContext';
+import { darkTheme, lightTheme } from '../util/colors';
 
 const Todo = ({ id, title, isDone }) => {
   const { todo, dispatch } = useContext(TodoContext);
-  const colorScheme = useContext(ColorSchemeContext);
+  const isDarkMode = useContext(IsDarkModeContext);
+  const theme = isDarkMode ? darkTheme : lightTheme;
 
   return (
     <View
       style={{
         ...styles.todo,
-        backgroundColor: colorScheme === 'dark' ? '#000000' : '#bf209c',
+        backgroundColor: theme.todoBg,
       }}
     >
       <View style={styles.checkTitleWrapper}>
@@ -29,14 +31,14 @@ const Todo = ({ id, title, isDone }) => {
               payload: { id, bool: newValue },
             })
           }
-          tintColor={colorScheme === 'dark' ? '#F9F871' : '#FFFFD0'}
-          onCheckColor={colorScheme === 'dark' ? '#F9F871' : '#FFFFD0'}
-          onTintColor={colorScheme === 'dark' ? '#F9F871' : '#FFFFD0'}
+          tintColor={theme.checkBox}
+          onCheckColor={theme.checkBox}
+          onTintColor={theme.checkBox}
         />
         <Text
           style={{
             ...styles.text,
-            color: colorScheme === 'dark' ? '#F9F871' : '#FFFFD0',
+            color: theme.todoText,
           }}
         >
           {title}
@@ -50,7 +52,7 @@ const Todo = ({ id, title, isDone }) => {
         <Feather
           style={{
             ...styles.deleteBtn,
-            color: colorScheme === 'dark' ? '#F9F871' : '#FFFFD0',
+            color: isDarkMode ? '#F9F871' : '#FFFFD0',
           }}
           name="trash-2"
         />

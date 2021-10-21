@@ -3,24 +3,26 @@ import React from 'react';
 import GalleryTab from './GalleryTab';
 import NavSwitcher from './helperComponents/NavSwitcher';
 import TodoTab from './TodoTab';
-import { ColorSchemeContext } from '../context/ColorSchemeContext';
+import { IsDarkModeContext } from '../context/IsDarkModeContext';
 import { useColorScheme } from 'react-native';
+import { darkTheme, lightTheme } from '../util/colors';
 
 const RootStack = createNativeStackNavigator();
 
 const Root = () => {
-  const colorScheme = useColorScheme();
+  const isDarkMode = useColorScheme() === 'dark';
+  const theme = isDarkMode ? darkTheme : lightTheme;
 
   return (
-    <ColorSchemeContext.Provider value={colorScheme}>
+    <IsDarkModeContext.Provider value={isDarkMode}>
       <RootStack.Navigator
         screenOptions={{
           headerBackVisible: false,
           headerStyle: {
-            backgroundColor: colorScheme === 'dark' ? '#000000' : '#FFFFD0',
+            backgroundColor: theme.headerColor,
           },
           headerTitleStyle: {
-            color: colorScheme === 'dark' ? '#F9F871' : '#BF209C',
+            color: theme.headerText,
             fontSize: 20,
           },
         }}
@@ -40,7 +42,7 @@ const Root = () => {
           }}
         />
       </RootStack.Navigator>
-    </ColorSchemeContext.Provider>
+    </IsDarkModeContext.Provider>
   );
 };
 
