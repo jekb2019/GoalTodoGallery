@@ -1,39 +1,16 @@
 import React, { useContext } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import CheckBox from '@react-native-community/checkbox';
-import { TodoContext } from '../context/TodoContext';
-import { ACTION_TYPES } from '../hooks/useTodo';
-import { IsDarkModeContext } from '../context/IsDarkModeContext';
-import { darkTheme, lightTheme } from '../util/colors';
-import styled from 'styled-components/native';
-
-const TodoContainer = styled.View`
-  flex-direction: row;
-  height: 50px;
-  margin: 10px 0;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 10px;
-  padding: 0 20px;
-  background-color: ${({ theme }) => theme.todoBg};
-`;
-
-const Title = styled.Text`
-  font-size: 20px;
-  color: ${({ theme }) => theme.todoText};
-`;
-
-const CheckTitleWrapper = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
+import { TodoContext } from '../../context/TodoContext';
+import { ACTION_TYPES } from '../../hooks/useTodo';
+import { TodoContainer, CheckTitleWrapper, Title } from './style';
+import { ThemeContext } from 'styled-components/native';
 
 const Todo = ({ id, title, isDone }) => {
-  const { todo, dispatch } = useContext(TodoContext);
-  const isDarkMode = useContext(IsDarkModeContext);
-  const theme = isDarkMode ? darkTheme : lightTheme;
+  const { _, dispatch } = useContext(TodoContext);
+  const theme = useContext(ThemeContext);
 
   return (
     <TodoContainer>

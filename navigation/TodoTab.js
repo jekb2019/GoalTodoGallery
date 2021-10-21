@@ -1,20 +1,19 @@
 import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import TodoBoard from '../screens/todo/TodoBoard';
+import TodoBoard from '../screens/todo/TodoBoard/TodoBoard';
 import { SCREEN_NAMES } from '../util/constants';
 import { displayIcon } from './util/displayer';
 import { TodoContext } from '../context/TodoContext';
 import { useTodo } from '../hooks/useTodo';
 import { capitalizeFirstLetter } from '../util/helpers';
-import { IsDarkModeContext } from '../context/IsDarkModeContext';
-import { darkTheme, lightTheme } from '../util/colors';
+import { ThemeContext } from 'styled-components/native';
 
 const Tab = createBottomTabNavigator();
 
 const TodoTab = () => {
   const [todo, dispatch] = useTodo();
-  const isDarkMode = useContext(IsDarkModeContext);
-  const theme = isDarkMode ? darkTheme : lightTheme;
+
+  const theme = useContext(ThemeContext);
 
   return (
     <TodoContext.Provider value={{ todo, dispatch }}>
@@ -34,7 +33,7 @@ const TodoTab = () => {
         <Tab.Screen
           name={SCREEN_NAMES.WORK}
           options={{
-            tabBarIcon: ({ focused, color, size }) =>
+            tabBarIcon: ({ _, color, size }) =>
               displayIcon(SCREEN_NAMES.WORK, color, size),
             tabBarLabel: capitalizeFirstLetter(SCREEN_NAMES.WORK),
           }}
@@ -44,7 +43,7 @@ const TodoTab = () => {
         <Tab.Screen
           name={SCREEN_NAMES.LIFE}
           options={{
-            tabBarIcon: ({ focused, color, size }) =>
+            tabBarIcon: ({ _, color, size }) =>
               displayIcon(SCREEN_NAMES.LIFE, color, size),
             tabBarLabel: capitalizeFirstLetter(SCREEN_NAMES.LIFE),
           }}
@@ -54,7 +53,7 @@ const TodoTab = () => {
         <Tab.Screen
           name={SCREEN_NAMES.GOAL}
           options={{
-            tabBarIcon: ({ focused, color, size }) => {
+            tabBarIcon: ({ _, color, size }) => {
               return displayIcon(SCREEN_NAMES.GOAL, color, size);
             },
             tabBarLabel: capitalizeFirstLetter(SCREEN_NAMES.GOAL),

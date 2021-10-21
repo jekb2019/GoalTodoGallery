@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
-import { TodoContext } from '../context/TodoContext';
-import { ACTION_TYPES } from '../hooks/useTodo';
-import { getTodo } from '../util/asyncStorage';
-import Todo from './Todo';
+import { ActivityIndicator, ScrollView } from 'react-native';
+import { TodoContext } from '../../context/TodoContext';
+import { ACTION_TYPES } from '../../hooks/useTodo';
+import { getTodo } from '../../util/asyncStorage';
+import Todo from '../Todo/Todo';
+import { TodoListContainer } from './style';
 
 const TodoList = ({ type }) => {
   const { todo, dispatch } = useContext(TodoContext);
@@ -21,7 +22,7 @@ const TodoList = ({ type }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <TodoListContainer>
       <ScrollView>
         {isTodoLoaded ? (
           todo.map((item) => {
@@ -40,15 +41,8 @@ const TodoList = ({ type }) => {
           <ActivityIndicator size="large" />
         )}
       </ScrollView>
-    </View>
+    </TodoListContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 30,
-  },
-});
 
 export default TodoList;

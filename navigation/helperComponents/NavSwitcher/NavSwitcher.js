@@ -1,19 +1,16 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useContext } from 'react';
 import { Text } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { IsDarkModeContext } from '../../context/IsDarkModeContext';
-import { darkTheme, lightTheme } from '../../util/colors';
+import { SwitchBtn } from './style';
+import { ThemeContext } from 'styled-components/native';
 
 const NavSwitcher = ({ screenToSwitch }) => {
-  const isDarkMode = useContext(IsDarkModeContext);
-  const theme = isDarkMode ? darkTheme : lightTheme;
-  const iconColor = theme.headerText;
-  const TodoIcon = <AntDesign name="edit" size={24} color={iconColor} />;
+  const theme = useContext(ThemeContext);
+  const TodoIcon = <AntDesign name="edit" size={24} color={theme.headerText} />;
   const GalleryIcon = (
-    <FontAwesome5 name="images" size={24} color={iconColor} />
+    <FontAwesome5 name="images" size={24} color={theme.headerText} />
   );
 
   const navigation = useNavigation();
@@ -34,9 +31,9 @@ const NavSwitcher = ({ screenToSwitch }) => {
   };
 
   return (
-    <TouchableOpacity onPress={switchScreen}>
+    <SwitchBtn onPress={switchScreen}>
       <Text>{displayButton()}</Text>
-    </TouchableOpacity>
+    </SwitchBtn>
   );
 };
 
