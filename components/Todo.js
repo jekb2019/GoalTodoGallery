@@ -7,6 +7,28 @@ import { TodoContext } from '../context/TodoContext';
 import { ACTION_TYPES } from '../hooks/useTodo';
 import { IsDarkModeContext } from '../context/IsDarkModeContext';
 import { darkTheme, lightTheme } from '../util/colors';
+import styled from 'styled-components/native';
+
+const TodoContainer = styled.View`
+  flex-direction: row;
+  height: 50px;
+  margin: 10px 0;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  padding: 0 20px;
+  background-color: ${({ theme }) => theme.todoBg};
+`;
+
+const Title = styled.Text`
+  font-size: 20px;
+  color: ${({ theme }) => theme.todoText};
+`;
+
+const CheckTitleWrapper = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
 
 const Todo = ({ id, title, isDone }) => {
   const { todo, dispatch } = useContext(TodoContext);
@@ -14,13 +36,8 @@ const Todo = ({ id, title, isDone }) => {
   const theme = isDarkMode ? darkTheme : lightTheme;
 
   return (
-    <View
-      style={{
-        ...styles.todo,
-        backgroundColor: theme.todoBg,
-      }}
-    >
-      <View style={styles.checkTitleWrapper}>
+    <TodoContainer>
+      <CheckTitleWrapper>
         <CheckBox
           style={styles.checkbox}
           disabled={false}
@@ -35,15 +52,8 @@ const Todo = ({ id, title, isDone }) => {
           onCheckColor={theme.checkBox}
           onTintColor={theme.checkBox}
         />
-        <Text
-          style={{
-            ...styles.text,
-            color: theme.todoText,
-          }}
-        >
-          {title}
-        </Text>
-      </View>
+        <Title>{title}</Title>
+      </CheckTitleWrapper>
       <TouchableOpacity
         onPress={() =>
           dispatch({ type: ACTION_TYPES.DELETE_TODO, payload: { id } })
@@ -57,29 +67,13 @@ const Todo = ({ id, title, isDone }) => {
           name="trash-2"
         />
       </TouchableOpacity>
-    </View>
+    </TodoContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  todo: {
-    flexDirection: 'row',
-    height: 50,
-    marginVertical: 10,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderRadius: 10,
-    paddingHorizontal: 20,
-  },
-  checkTitleWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   checkbox: {
     marginRight: 20,
-  },
-  text: {
-    fontSize: 20,
   },
   deleteBtn: {
     fontSize: 24,

@@ -6,6 +6,7 @@ import TodoTab from './TodoTab';
 import { IsDarkModeContext } from '../context/IsDarkModeContext';
 import { useColorScheme } from 'react-native';
 import { darkTheme, lightTheme } from '../util/colors';
+import { ThemeProvider } from 'styled-components/native';
 
 const RootStack = createNativeStackNavigator();
 
@@ -15,33 +16,35 @@ const Root = () => {
 
   return (
     <IsDarkModeContext.Provider value={isDarkMode}>
-      <RootStack.Navigator
-        screenOptions={{
-          headerBackVisible: false,
-          headerStyle: {
-            backgroundColor: theme.headerColor,
-          },
-          headerTitleStyle: {
-            color: theme.headerText,
-            fontSize: 20,
-          },
-        }}
-      >
-        <RootStack.Screen
-          name="Todo"
-          component={TodoTab}
-          options={{
-            headerRight: () => <NavSwitcher screenToSwitch="Gallery" />,
+      <ThemeProvider theme={theme}>
+        <RootStack.Navigator
+          screenOptions={{
+            headerBackVisible: false,
+            headerStyle: {
+              backgroundColor: theme.headerColor,
+            },
+            headerTitleStyle: {
+              color: theme.headerText,
+              fontSize: 20,
+            },
           }}
-        />
-        <RootStack.Screen
-          name="Gallery"
-          component={GalleryTab}
-          options={{
-            headerRight: () => <NavSwitcher screenToSwitch="Todo" />,
-          }}
-        />
-      </RootStack.Navigator>
+        >
+          <RootStack.Screen
+            name="Todo"
+            component={TodoTab}
+            options={{
+              headerRight: () => <NavSwitcher screenToSwitch="Gallery" />,
+            }}
+          />
+          <RootStack.Screen
+            name="Gallery"
+            component={GalleryTab}
+            options={{
+              headerRight: () => <NavSwitcher screenToSwitch="Todo" />,
+            }}
+          />
+        </RootStack.Navigator>
+      </ThemeProvider>
     </IsDarkModeContext.Provider>
   );
 };
