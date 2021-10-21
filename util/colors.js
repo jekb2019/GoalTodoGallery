@@ -24,3 +24,5 @@ export const lightTheme = {
   todoText: '#FFFFD0',
   checkBox: '#FFFFD0',
 };
+
+export const COLOR_WHITE = '#ffffff';

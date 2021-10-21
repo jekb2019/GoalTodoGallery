@@ -15,6 +15,7 @@ const TodoTab = () => {
   const [todo, dispatch] = useTodo();
   const isDarkMode = useContext(IsDarkModeContext);
   const theme = isDarkMode ? darkTheme : lightTheme;
+
   return (
     <TodoContext.Provider value={{ todo, dispatch }}>
       <Tab.Navigator

@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { TextInput, StyleSheet, View } from 'react-native';
 import { TodoContext } from '../context/TodoContext';
 import { ACTION_TYPES } from '../hooks/useTodo';
+import { COLOR_WHITE } from '../util/colors';
 
 const TodoInput = ({ type }) => {
   const { dispatch } = useContext(TodoContext);
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   input: {
-    backgroundColor: 'white',
+    backgroundColor: COLOR_WHITE,
     height: 40,
     borderRadius: 20,
     fontSize: 20,

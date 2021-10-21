@@ -52,7 +52,7 @@ const Todo = ({ id, title, isDone }) => {
         <Feather
           style={{
             ...styles.deleteBtn,
-            color: isDarkMode ? '#F9F871' : '#FFFFD0',
+            color: theme.todoText,
           }}
           name="trash-2"
         />
