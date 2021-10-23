@@ -1,12 +1,8 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-import styled from 'styled-components';
 import ImageViewer from '../../../components/ImageViewer/ImageViewer';
 import { SCREEN_NAMES } from '../../../util/constants';
-const GalleryBoardContainer = styled.View`
-  flex: 1;
-  background-color: powderblue;
-`;
+import { GalleryBoardContainer } from './style';
 
 const images = {
   work: [

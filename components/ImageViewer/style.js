@@ -2,7 +2,9 @@ import styled from 'styled-components/native';
 
 export const ImageViewerContainer = styled.View`
   position: relative;
-  border: 3px solid black;
+  border-width: 4px;
+  border-style: solid;
+  border-color: ${({ theme }) => theme.galleryBorder};
   margin: 10px;
   width: 400px;
   height: 300px;

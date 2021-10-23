@@ -10,6 +10,7 @@ export const darkTheme = {
   todoBg: '#000000',
   todoText: '#F9F871',
   checkBox: '#F9F871',
+  galleryBorder: '#000000',
 };
 
 export const lightTheme = {
@@ -23,6 +24,7 @@ export const lightTheme = {
   todoBg: '#BF209C',
   todoText: '#FFFFD0',
   checkBox: '#FFFFD0',
+  galleryBorder: '#FFFFD0',
 };
 
 export const COLOR_WHITE = '#ffffff';
