@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { useContext } from 'react';
 import { ThemeContext } from 'styled-components/native';
+import GalleryBoard from '../screens/gallery/GalleryBoard/GalleryBoard';
 import GoalGallery from '../screens/gallery/GoalGallery';
 import LifeGallery from '../screens/gallery/LifeGallery';
 import WorkGallery from '../screens/gallery/WorkGallery';
@@ -28,25 +29,26 @@ const GalleryTab = (props) => {
       }}
     >
       <Tab.Screen
-        component={WorkGallery}
         name={SCREEN_NAMES.WORK}
         options={{
           tabBarIcon: ({ _, color, size }) =>
             displayIcon(SCREEN_NAMES.WORK, color, size),
           tabBarLabel: capitalizeFirstLetter(SCREEN_NAMES.WORK),
         }}
-      />
+      >
+        {() => <GalleryBoard type={SCREEN_NAMES.WORK} />}
+      </Tab.Screen>
       <Tab.Screen
-        component={LifeGallery}
         name={SCREEN_NAMES.LIFE}
         options={{
           tabBarIcon: ({ _, color, size }) =>
             displayIcon(SCREEN_NAMES.LIFE, color, size),
           tabBarLabel: capitalizeFirstLetter(SCREEN_NAMES.LIFE),
         }}
-      />
+      >
+        {() => <GalleryBoard type={SCREEN_NAMES.LIFE} />}
+      </Tab.Screen>
       <Tab.Screen
-        component={GoalGallery}
         name={SCREEN_NAMES.GOAL}
         options={{
           tabBarIcon: ({ _, color, size }) => {
@@ -54,7 +56,9 @@ const GalleryTab = (props) => {
           },
           tabBarLabel: capitalizeFirstLetter(SCREEN_NAMES.GOAL),
         }}
-      />
+      >
+        {() => <GalleryBoard type={SCREEN_NAMES.GOAL} />}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 };
