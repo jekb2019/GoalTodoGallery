@@ -4,10 +4,11 @@ import React, { useEffect, useState } from 'react';
 import Root from './navigation/Root';
 import * as Font from 'expo-font';
 import { Ionicons, MaterialIcons, Feather } from '@expo/vector-icons';
-import { Asset, useAssets } from 'expo-asset';
+import { useAssets } from 'expo-asset';
 
 export default function App() {
   const [isFontLoaded, setIsFontLoaded] = useState(false);
+  const icons = [Ionicons.font, MaterialIcons.font, Feather.font];
   const [assets] = useAssets([
     require('./assets/images/work1.jpg'),
     require('./assets/images/work2.jpg'),
@@ -18,24 +19,23 @@ export default function App() {
     require('./assets/images/goal2.jpg'),
   ]);
 
-  const loadFonts = async () => {
-    await Font.loadAsync(Ionicons.font);
-    await Font.loadAsync(MaterialIcons.font);
-    await Font.loadAsync(Feather.font);
+  const loadFonts = async (fonts) => {
+    const loadedFonts = fonts.map(async (font) => await Font.loadAsync(font));
     setIsFontLoaded(true);
+    return loadedFonts;
   };
 
   useEffect(() => {
-    loadFonts().catch(console.error);
+    loadFonts(icons).catch(console.error);
   });
 
-  if (assets && isFontLoaded) {
-    return (
-      <NavigationContainer>
-        <Root />
-      </NavigationContainer>
-    );
+  if (!assets || !isFontLoaded) {
+    return <AppLoading onFinish={() => setIsAppLoaded(true)} />;
   }
 
-  return <AppLoading onFinish={() => setIsAppLoaded(true)} />;
+  return (
+    <NavigationContainer>
+      <Root />
+    </NavigationContainer>
+  );
 }
