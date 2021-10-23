@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import AppLoading from 'expo-app-loading';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Root from './navigation/Root';
 import * as Font from 'expo-font';
 import { Ionicons, MaterialIcons, Feather } from '@expo/vector-icons';
@@ -19,21 +19,23 @@ export default function App() {
   ]);
 
   const loadFonts = async () => {
-    await Font.loadAsync({
-      Ionicons: Ionicons.font,
-      MaterialIcons: MaterialIcons.font,
-      Feather: Feather.font,
-    });
+    await Font.loadAsync(Ionicons.font);
+    await Font.loadAsync(MaterialIcons.font);
+    await Font.loadAsync(Feather.font);
     setIsFontLoaded(true);
   };
 
-  if (!assets || isFontLoaded) {
-    return <AppLoading onFinish={() => setIsAppLoaded(true)} />;
+  useEffect(() => {
+    loadFonts().catch(console.error);
+  });
+
+  if (assets && isFontLoaded) {
+    return (
+      <NavigationContainer>
+        <Root />
+      </NavigationContainer>
+    );
   }
 
-  return (
-    <NavigationContainer>
-      <Root />
-    </NavigationContainer>
-  );
+  return <AppLoading onFinish={() => setIsAppLoaded(true)} />;
 }
